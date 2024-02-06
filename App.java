@@ -14,7 +14,7 @@ public class App {
 
         Helper.setTheme();
         UserManager userManager = new UserManager();
-        //AdminView adminView = new AdminView(userManager.findByLogin("ali","1234"));
+      //  AdminView adminView = new AdminView(userManager.findByLogin("ali","1234"));
         EmployeeView employeeView = new EmployeeView(userManager.findByLogin("ali","1234"));
     }
 }

@@ -67,6 +67,7 @@ public class AdminView extends Layout{
 
 
             this.userMenu = new JPopupMenu();
+
             this.userMenu.add("Yeni").addActionListener(e -> {
                 UserView userView = new UserView(null);
 

@@ -53,32 +53,34 @@ public class HotelSaveView extends Layout{
 
 
         this.kaydetButton.addActionListener(e -> {
+
             JTextField[] textfields = {fld_hotel_name, fld_mail,fld_phone,fld_adres};
             if(Helper.isFieldListEmpty(textfields)){
                 Helper.showMsg("fill");
             } else{
-                boolean result = false;
+
+                boolean result;
                 this.hotel.setHotelname(fld_hotel_name.getText());
                 this.hotel.setHoteladress(fld_adres.getText());
                 this.hotel.setHotelmail(fld_mail.getText());
                 this.hotel.setHotelphone(fld_phone.getText());
                 this.hotel.setHotelstar(cmb_star.getSelectedItem().toString());
-                this.hotel.setCarpark(carParkRadioButton.getAutoscrolls());
-                this.hotel.setWifi(wifiRadioButton.getAutoscrolls());
-                this.hotel.setPool(poolRadioButton.getAutoscrolls());
-                this.hotel.setFitness(fitnessRadioButton.getAutoscrolls());
-                this.hotel.setConcierge(conciergeRadioButton.getAutoscrolls());
-                this.hotel.setSpa(spaRadioButton.getAutoscrolls());
-                this.hotel.setRoomservice(rommServiceRadioButton.getAutoscrolls());
-                if(this.hotel.getId() != 0){ //seçtiğim otel null ise yeni bir otel eklemem gerekir. textfield'lara girilen değerleri çekmeye başlıyorum.
+                this.hotel.setCarpark(carParkRadioButton.isSelected());
+                this.hotel.setWifi(wifiRadioButton.isSelected());
+                this.hotel.setPool(poolRadioButton.isSelected());
+                this.hotel.setFitness(fitnessRadioButton.isSelected());
+                this.hotel.setConcierge(conciergeRadioButton.isSelected());
+                this.hotel.setSpa(spaRadioButton.isSelected());
+                this.hotel.setRoomservice(rommServiceRadioButton.isSelected());
 
+                result = this.hotelManager.save(this.hotel);
+                dispose();
 
-
-                } else { // id 0'dan farklı değilse bu ibr ekleme=save işlemidir. burası çalışacak.
-                    result = this.hotelManager.save(this.hotel);
-                }
             }
         });
+
+
+
 
 
     }
