@@ -1,5 +1,8 @@
 package Entity;
 
+import Business.HotelManager;
+import Core.ComboItem;
+
 public class Hotel {
 
     private int id;
@@ -15,6 +18,8 @@ public class Hotel {
     private boolean concierge;
     private boolean spa;
     private boolean roomservice;
+    private HotelManager hotelManager;
+    private Pansiyon pansiyon;
 
     public Hotel() {
     }
@@ -34,6 +39,8 @@ public class Hotel {
         this.concierge = concierge;
         this.spa = spa;
         this.roomservice = roomservice;
+        HotelManager hotelManager = new HotelManager();
+        Pansiyon pansiyon = new Pansiyon();
     }
 
     public int getId() {
@@ -138,6 +145,10 @@ public class Hotel {
 
     public void setRoomservice(boolean roomservice) {
         this.roomservice = roomservice;
+    }
+
+    public ComboItem getComboItem(){
+        return new ComboItem(this.getId(), this.getHotelname());
     }
 
     @Override

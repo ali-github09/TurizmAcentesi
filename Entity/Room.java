@@ -3,8 +3,6 @@ package Entity;
 public class Room {
     private int id;
     private int otel_id;
-    private String pansiyon;
-    private String dönem;
     private String oda_tipi;
     private int stok;
     private int yetişkin_fiyat;
@@ -16,16 +14,18 @@ public class Room {
     private boolean oyun_konsolu;
     private boolean kasa;
     private boolean projeksiyon;
+    private Hotel hotel;
+    private String season;
+    private String pansiyon;
+
 
     public Room() {
     }
 
-    public Room(int id, int otel_id, String pansiyon, String dönem, String oda_tipi, int stok, int yetişkin_fiyat, int çocuk_fiyat,
-                int yatak_kapasitesi, int alan, boolean tv, boolean minibar, boolean oyun_konsolu, boolean kasa, boolean projeksiyon) {
+    public Room(int id, int otel_id, String oda_tipi, int stok, int yetişkin_fiyat, int çocuk_fiyat, int yatak_kapasitesi,
+                int alan, boolean tv, boolean minibar, boolean oyun_konsolu, boolean kasa, boolean projeksiyon, Hotel hotel, String  season, String pansiyon) {
         this.id = id;
         this.otel_id = otel_id;
-        this.pansiyon = pansiyon;
-        this.dönem = dönem;
         this.oda_tipi = oda_tipi;
         this.stok = stok;
         this.yetişkin_fiyat = yetişkin_fiyat;
@@ -37,6 +37,9 @@ public class Room {
         this.oyun_konsolu = oyun_konsolu;
         this.kasa = kasa;
         this.projeksiyon = projeksiyon;
+        this.hotel = hotel;
+        this.season = season;
+        this.pansiyon = pansiyon;
     }
 
     public int getId() {
@@ -53,22 +56,6 @@ public class Room {
 
     public void setOtel_id(int otel_id) {
         this.otel_id = otel_id;
-    }
-
-    public String getPansiyon() {
-        return pansiyon;
-    }
-
-    public void setPansiyon(String pansiyon) {
-        this.pansiyon = pansiyon;
-    }
-
-    public String getDönem() {
-        return dönem;
-    }
-
-    public void setDönem(String dönem) {
-        this.dönem = dönem;
     }
 
     public String getOda_tipi() {
@@ -157,5 +144,51 @@ public class Room {
 
     public void setProjeksiyon(boolean projeksiyon) {
         this.projeksiyon = projeksiyon;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public String  getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public String getPansiyon() {
+        return pansiyon;
+    }
+
+    public void setPansiyon(String pansiyon) {
+        this.pansiyon = pansiyon;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", otel_id=" + otel_id +
+                ", oda_tipi='" + oda_tipi + '\'' +
+                ", stok=" + stok +
+                ", yetişkin_fiyat=" + yetişkin_fiyat +
+                ", çocuk_fiyat=" + çocuk_fiyat +
+                ", yatak_kapasitesi=" + yatak_kapasitesi +
+                ", alan=" + alan +
+                ", tv=" + tv +
+                ", minibar=" + minibar +
+                ", oyun_konsolu=" + oyun_konsolu +
+                ", kasa=" + kasa +
+                ", projeksiyon=" + projeksiyon +
+                ", hotel=" + hotel +
+                ", season=" + season +
+                ", pansiyon=" + pansiyon +
+                '}';
     }
 }

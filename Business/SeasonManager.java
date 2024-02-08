@@ -41,4 +41,6 @@ public class SeasonManager {
         }
         return seasonRowList;
     }
+
+    public ArrayList<Season> getSeasonsByOtelId(int id){return this.seasonDao.getSeasonsByOtelId(id);}
 }

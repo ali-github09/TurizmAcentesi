@@ -1,5 +1,6 @@
 import Business.UserManager;
 import Core.Helper;
+import Entity.User;
 import View.AdminView;
 import View.EmployeeView;
 import View.LoginView;
@@ -14,7 +15,6 @@ public class App {
 
         Helper.setTheme();
         UserManager userManager = new UserManager();
-      //  AdminView adminView = new AdminView(userManager.findByLogin("ali","1234"));
-        EmployeeView employeeView = new EmployeeView(userManager.findByLogin("ali","1234"));
+        LoginView loginView = new LoginView();
     }
 }

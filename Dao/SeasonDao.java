@@ -60,6 +60,25 @@ public class SeasonDao {
         return true;
     }
 
+    public ArrayList<Season> getSeasonsByOtelId(int otelId) {
+        ArrayList<Season> seasons = new ArrayList<>();
+        String query = "SELECT * FROM public.season WHERE otel_id = ?";
+
+        try (PreparedStatement pr = con.prepareStatement(query)) {
+            pr.setInt(1, otelId);
+            ResultSet rs = pr.executeQuery();
+
+            while (rs.next()) {
+                Season season = match(rs);
+                seasons.add(season);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return seasons;
+    }
+
 
 
 

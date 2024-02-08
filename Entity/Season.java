@@ -1,5 +1,7 @@
 package Entity;
 
+import Core.ComboItem;
+
 public class Season {
     private int id;
     private int otel_id;
@@ -46,6 +48,10 @@ public class Season {
 
     public void setFinish_date(String finish_date) {
         this.finish_date = finish_date;
+    }
+
+    public ComboItem getComboItem(){
+        return new ComboItem(this.getId(), "( Start Date: -> " + this.getStart_date() + " - "+" Finish Date: -> " + this.getFinish_date() + ")");
     }
 
     @Override

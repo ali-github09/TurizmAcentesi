@@ -37,7 +37,7 @@ public class RoomDao {
         room.setId(rs.getInt("id"));
         room.setOtel_id(rs.getInt("otel_id"));
         room.setPansiyon(rs.getString("pansiyon"));
-        room.setDönem(rs.getString("dönem"));
+        room.setSeason(rs.getString("dönem"));
         room.setOda_tipi(rs.getString("oda_tipi"));
         room.setStok(rs.getInt("stok"));
         room.setYetişkin_fiyat(rs.getInt("yetişkin_fiyat"));
@@ -54,30 +54,41 @@ public class RoomDao {
 
     public boolean save(Room room){
         // kaç adet veri eklenecekse o kadar soru işareti olması gerekiyor.
-        String query = "INSERT INTO public.room (id,otel_id,pansiyon,dönem,oda_tipi,stok_yetişkin_fiyat,çocuk_fiyat,yatak_kapasitesi,alan,tv,minibar,oyun_konsolu,kasa,projeksiyon) " +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO public.room (otel_id,pansiyon,dönem,oda_tipi,stok,yetişkin_fiyat,çocuk_fiyat,yatak_kapasitesi,alan,tv,minibar,oyun_konsolu,kasa,projeksiyon) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1, room.getId());
-            pr.setInt(2, room.getOtel_id());
-            pr.setString(3, room.getPansiyon());
-            pr.setString(4, room.getDönem());
-            pr.setString(5, room.getOda_tipi());
-            pr.setInt(6, room.getStok());
-            pr.setInt(7, room.getYetişkin_fiyat());
-            pr.setInt(8, room.getÇocuk_fiyat());
-            pr.setInt(9, room.getYatak_kapasitesi());
-            pr.setInt(10, room.getAlan());
-            pr.setBoolean(11, room.isTv());
-            pr.setBoolean(12, room.isMinibar());
-            pr.setBoolean(13,room.isOyun_konsolu());
-            pr.setBoolean(14,room.isKasa());
-            pr.setBoolean(15,room.isProjeksiyon());
+            pr.setInt(1, room.getOtel_id());
+            pr.setString(2, room.getPansiyon());
+            pr.setString(3, room.getSeason());
+            pr.setString(4, room.getOda_tipi());
+            pr.setInt(5, room.getStok());
+            pr.setInt(6, room.getYetişkin_fiyat());
+            pr.setInt(7, room.getÇocuk_fiyat());
+            pr.setInt(8, room.getYatak_kapasitesi());
+            pr.setInt(9, room.getAlan());
+            pr.setBoolean(10, room.isTv());
+            pr.setBoolean(11, room.isMinibar());
+            pr.setBoolean(12,room.isOyun_konsolu());
+            pr.setBoolean(13,room.isKasa());
+            pr.setBoolean(14,room.isProjeksiyon());
 
             return pr.executeUpdate() != -1;
         }catch (SQLException e){
             e.printStackTrace();
         }
         return true;
+    }
+
+    public Room getById(int id){
+        Room obj = null;
+        String query = "SELECT * FROM public.room WHERE id = ?";
+        try {
+            PreparedStatement pr = con.prepareStatement(query);
+            pr.setInt(1,id);
+            ResultSet rs = pr.executeQuery();
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        } return obj;
     }
 }

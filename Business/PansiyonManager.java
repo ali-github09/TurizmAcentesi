@@ -41,4 +41,7 @@ public class PansiyonManager {
         return pansiyonRowList;
     }
 
+    public ArrayList<Pansiyon> getPensionByOtelId(int id){return this.pansiyonDao.getPensionByOtelId(id);}
+
+
 }

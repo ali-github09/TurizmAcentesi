@@ -54,6 +54,25 @@ public class PansiyonDao {
         return true;
     }
 
+    public ArrayList<Pansiyon> getPensionByOtelId(int id) {
+        ArrayList<Pansiyon> pansiyons = new ArrayList<>();
+        String query = "SELECT * FROM public.pansiyon WHERE otel_id = ?";
+
+        try (PreparedStatement pr = con.prepareStatement(query)) {
+            pr.setInt(1, id);
+            ResultSet rs = pr.executeQuery();
+
+            while (rs.next()) {
+                Pansiyon pansiyon = match(rs);
+                pansiyons.add(pansiyon);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pansiyons;
+    }
+
 
 
 }

@@ -47,7 +47,6 @@ public class HotelSaveView extends Layout{
                 // Seçilen öğeyi al
                 String selectedStar = "";
                 selectedStar = (String) cmb_star.getSelectedItem();
-
             }
         });
 
@@ -78,14 +77,7 @@ public class HotelSaveView extends Layout{
 
             }
         });
-
-
-
-
-
     }
-
-
 }
 
 

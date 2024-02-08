@@ -35,7 +35,7 @@ public class RoomManager {
             rowObject[i++] = room1.getId();
             rowObject[i++] = room1.getOtel_id();
             rowObject[i++] = room1.getPansiyon();
-            rowObject[i++] = room1.getDönem();
+            rowObject[i++] = room1.getSeason();
             rowObject[i++] = room1.getOda_tipi();
             rowObject[i++] = room1.getStok();
             rowObject[i++] = room1.getYetişkin_fiyat();

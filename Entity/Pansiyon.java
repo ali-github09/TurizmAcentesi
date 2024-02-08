@@ -1,5 +1,7 @@
 package Entity;
 
+import Core.ComboItem;
+
 public class Pansiyon {
     private int id;
     private int otel_id;
@@ -36,6 +38,10 @@ public class Pansiyon {
 
     public void setPansiyon_name(String pansiyon_name) {
         this.pansiyon_name = pansiyon_name;
+    }
+
+    public ComboItem getComboItem(){
+        return new ComboItem(this.getId(),this.getPansiyon_name());
     }
 
     @Override
