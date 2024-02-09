@@ -21,7 +21,7 @@ public class LoginGUI extends Layout{
 
     public LoginGUI(){
         this.add(wrapper);
-        this.guiInitilaze(450,450);
+        this.guiInitilaze(300,300);
         this.userManager = new UserManager();
 
 

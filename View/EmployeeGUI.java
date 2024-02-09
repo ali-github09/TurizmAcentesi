@@ -125,9 +125,9 @@ public class EmployeeGUI extends Layout {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JTextField[] roomJTextField = new JTextField[]{tf_date_entry_room, tf_date_release_room, tf_numb_adult_room, tf_numb_children_room};
+                JTextField[] roomJTextField = new JTextField[]{tf_numb_adult_room, tf_numb_children_room};
                 if (Helper.isFieldListEmpty(roomJTextField)) {
-                    Helper.showMsg("Please fill adult and children guest number field");
+                    Helper.showMsg("Please fill adult and children guest number fields");
                 }
 
                 int selectedAdult = Integer.parseInt(tf_numb_adult_room.getText());

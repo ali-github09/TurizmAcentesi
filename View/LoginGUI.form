@@ -47,18 +47,18 @@
               </component>
               <component id="b1d53" class="javax.swing.JLabel" binding="lbl_user">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="USER"/>
+                  <text value="User Name"/>
                 </properties>
               </component>
               <component id="18f" class="javax.swing.JLabel" binding="lbl_pass">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="PASS"/>
+                  <text value="Password"/>
                 </properties>
               </component>
               <component id="e843c" class="javax.swing.JButton" binding="btn_login">

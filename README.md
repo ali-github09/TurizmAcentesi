@@ -23,5 +23,5 @@ Employee olarak giriş yapan kullanıcılar ayrıca
 müsaitlik durumunu
 * odada konuklayacak kişi sayısını denetler. 
 
-3. Projenin kullanımı ile ilgili detayları [tanıtım linki](www.google.com)  
+3. Projenin kullanımı ile ilgili detayları [tanıtım linki](https://www.youtube.com/watch?v=-ekjGPGuIt4)  
 üzerinden inceleyebilirsiniz.

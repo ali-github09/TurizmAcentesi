@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Layout extends JFrame {
     public void guiInitilaze(int width,int height){
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setTitle("Budget Hotel");
+        this.setTitle("TURKISH BNB");
         this.setSize(width,height);
         this.setLocation(Helper.getLocationPoint("x",this.getSize()),Helper.getLocationPoint("y",this.getSize()));
         this.setVisible(true);
