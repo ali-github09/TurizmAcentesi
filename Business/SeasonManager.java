@@ -1,46 +1,51 @@
-package Business;
+package business;
 
-import Core.Helper;
-import Dao.SeasonDao;
-import Entity.Hotel;
-import Entity.Season;
+import core.Helper;
+import dao.PensionDao;
+import dao.SeasonDao;
+import entity.Pension;
+import entity.Season;
 
 import java.util.ArrayList;
 
 public class SeasonManager {
-    private SeasonDao seasonDao;
+    SeasonDao seasonDao = new SeasonDao();
 
-    public SeasonManager() {
-        this.seasonDao = new SeasonDao();
+    public Season getById(int id){
+        return this.seasonDao.getByID(id);
+    }
+    public ArrayList<Season> getSeasonsByOtelId(int id){return this.seasonDao.getSeasonsByOtelId(id);}
+    public ArrayList<Season> findAll()
+    {return this.seasonDao.findAll();}
+
+    public ArrayList<Object[]> getForTable(int size,ArrayList<Season> seasons){
+        ArrayList<Object[]> seasonList = new ArrayList<>();
+        for (Season obj : seasons){
+            int i = 0;
+            Object[] rowObject = new Object[size];
+            rowObject[i++] = obj.getId();
+            rowObject[i++] = obj.getHotel_id();
+            rowObject[i++] = obj.getStart_date();
+            rowObject[i++] = obj.getFinish_date();
+            seasonList.add(rowObject);
+        }
+        return seasonList;
     }
 
-    public ArrayList<Season> findAll(){
-        return this.seasonDao.findAll();
-    }
 
     public boolean save(Season season){
-        // eğer verdiğimizi season'un id'si 0 değilse yani bir id'si varsa bunu tabloya ekleyemeyiz bu durumda hata yapmışız demektir
-        if(season.getId() != 0){
+        if(season.getId()!=0){
             Helper.showMsg("error");
         }
         return this.seasonDao.save(season);
     }
 
-    public ArrayList<Object[]> getForTable(int size){
-        ArrayList<Object[]> seasonRowList = new ArrayList<>();
-
-        for(Season season1: this.findAll()){
-            Object[] rowObject = new Object[size];
-            int i = 0;
-            rowObject[i++] = season1.getId();
-            rowObject[i++] = season1.getOtel_id();
-            rowObject[i++] = season1.getFinish_date();
-            rowObject[i++] = season1.getStart_date();
-
-            seasonRowList.add(rowObject);
+    public boolean delete(int id){
+        if(this.getById(id) == null){
+            Helper.showMsg(id + " ID kayıtlı model bulunamadı");
+            return false;
         }
-        return seasonRowList;
+        return this.seasonDao.delete(id);
     }
 
-    public ArrayList<Season> getSeasonsByOtelId(int id){return this.seasonDao.getSeasonsByOtelId(id);}
 }

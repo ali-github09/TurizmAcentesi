@@ -1,9 +1,10 @@
-package Dao;
+package dao;
 
-import Core.Db;
-import Entity.Hotel;
-import Entity.User;
+import core.Database;
+import entity.Hotel;
+import entity.User;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,69 +12,147 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HotelDao {
-    private final Connection con;
+    private final Connection connection;
 
-    //constructor
     public HotelDao() {
-        this.con = Db.getInstance();
+
+        this.connection = Database.getInstance();
     }
 
 
-    public ArrayList<Hotel> findAll(){
-        ArrayList<Hotel> hotelList = new ArrayList<>();
-        String sql = "SELECT * FROM public.otel ORDER BY otel_id";
+    public Hotel getByID(int id) {
+        Hotel obj = null;
+        String query = "SELECT * FROM public.hotel WHERE id = ? ";
         try {
-            ResultSet rs = this.con.createStatement().executeQuery(sql);
-            while(rs.next()){
+            PreparedStatement pr = this.connection.prepareStatement(query);
+            pr.setInt(1, id);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = this.match(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public Hotel match(ResultSet rs) throws SQLException {
+        Hotel obj = new Hotel();
+        obj.setId(rs.getInt("id"));
+        obj.setName(rs.getString("name"));
+        obj.setAddress(rs.getString("address"));
+        obj.setMail(rs.getString("mail"));
+        obj.setPhone(rs.getString("phone"));
+        obj.setStar(rs.getString("star"));
+        obj.setCar_park(rs.getBoolean("car_park"));
+        obj.setWifi(rs.getBoolean("wifi"));
+        obj.setPool(rs.getBoolean("pool"));
+        obj.setFitness(rs.getBoolean("fitness"));
+        obj.setConcierge(rs.getBoolean("concierge"));
+        obj.setSpa(rs.getBoolean("spa"));
+        obj.setRoom_service(rs.getBoolean("room_service"));
+
+        return obj;
+    }
+
+    public ArrayList<Hotel> findAll() {
+        ArrayList<Hotel> hotelList = new ArrayList<>();
+        String sql = "SELECT * FROM public.hotel";
+        try {
+            ResultSet rs = this.connection.createStatement().executeQuery(sql);
+            while (rs.next()) {
+
                 hotelList.add(this.match(rs));
             }
-        } catch (Exception e){
-            e.getMessage();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return hotelList;
     }
 
-    public Hotel match(ResultSet rs) throws SQLException {
-        Hotel hotel = new Hotel();
-        hotel.setId(rs.getInt("otel_id"));
-        hotel.setHotelname(rs.getString("otel_name"));
-        hotel.setHoteladress(rs.getString("otel_adress"));
-        hotel.setHotelmail(rs.getString("otel_mail"));
-        hotel.setHotelphone(rs.getString("otel_phone"));
-        hotel.setHotelstar(rs.getString("otel_star"));
-        hotel.setCarpark(rs.getBoolean("carpark"));
-        hotel.setWifi(rs.getBoolean("wifi"));
-        hotel.setPool(rs.getBoolean("pool"));
-        hotel.setFitness(rs.getBoolean("fitness"));
-        hotel.setConcierge(rs.getBoolean("concierge"));
-        hotel.setSpa(rs.getBoolean("spa"));
-        hotel.setRoomservice(rs.getBoolean("room_service"));
 
-        return hotel;
-    }
-
-    public boolean save(Hotel hotel){
-        // kaç adet veri eklenecekse o kadar soru işareti olması gerekiyor.
-        String query = "INSERT INTO public.otel (otel_name,otel_adress,otel_mail,otel_phone,otel_star,carpark,wifi,pool,fitness,concierge,room_service,spa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    public boolean save(Hotel hotel) {
+        String query = "INSERT INTO public.hotel " +
+                "(" +
+                "name," +
+                "mail," +
+                "phone," +
+                "address," +
+                "star,"+
+                "car_park," +
+                "wifi," +
+                "pool," +
+                "fitness," +
+                "concierge," +
+                "spa," +
+                "room_service " +
+                ")" +
+                " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setString(1, hotel.getHotelname());
-            pr.setString(2, hotel.getHoteladress());
-            pr.setString(3, hotel.getHotelmail());
-            pr.setString(4, hotel.getHotelphone());
-            pr.setString(5, hotel.getHotelstar());
-            pr.setBoolean(6, hotel.isCarpark());
+            PreparedStatement pr = connection.prepareStatement(query);
+            pr.setString(1, hotel.getName());
+            pr.setString(2, hotel.getMail());
+            pr.setString(3, hotel.getPhone());
+            pr.setString(4, hotel.getAddress());
+            pr.setString(5, hotel.getStar());
+            pr.setBoolean(6, hotel.isCar_park());
             pr.setBoolean(7, hotel.isWifi());
             pr.setBoolean(8, hotel.isPool());
             pr.setBoolean(9, hotel.isFitness());
             pr.setBoolean(10, hotel.isConcierge());
-            pr.setBoolean(11, hotel.isRoomservice());
-            pr.setBoolean(12, hotel.isSpa());
+            pr.setBoolean(11, hotel.isSpa());
+            pr.setBoolean(12, hotel.isRoom_service());
             return pr.executeUpdate() != -1;
-        }catch (SQLException e){
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return true;
     }
+    public boolean delete(int model_id){
+        try{
+            String query = "DELETE FROM public.hotel WHERE id = ?";
+            PreparedStatement pr = connection.prepareStatement(query);
+            pr.setInt(1,model_id);
+            return pr.executeUpdate() != -1;
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return true;
+    }
+    public boolean update(Hotel hotel) {
+        try {
+            String query = "UPDATE public.hotel SET " +
+                    "name," +
+                    "mail," +
+                    "phone," +
+                    "address," +
+                    "star,"+
+                    "car_park," +
+                    "wifi," +
+                    "pool," +
+                    "fitness," +
+                    "concierge," +
+                    "spa," +
+                    "room_service " +
+                    "WHERE hotel = ?";
+            PreparedStatement pr = connection.prepareStatement(query);
+            pr.setString(1, hotel.getName());
+            pr.setString(2, hotel.getMail());
+            pr.setString(3, hotel.getPhone());
+            pr.setString(4, hotel.getAddress());
+            pr.setString(5, hotel.getStar());
+            pr.setBoolean(6, hotel.isCar_park());
+            pr.setBoolean(7, hotel.isWifi());
+            pr.setBoolean(8, hotel.isPool());
+            pr.setBoolean(9, hotel.isFitness());
+            pr.setBoolean(10, hotel.isConcierge());
+            pr.setBoolean(11, hotel.isSpa());
+            pr.setBoolean(12, hotel.isRoom_service());
+            return pr.executeUpdate() != -1;
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

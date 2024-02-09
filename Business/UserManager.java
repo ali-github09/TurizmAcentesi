@@ -1,11 +1,10 @@
-package Business;
+package business;
 
-import Core.Helper;
-import Dao.UserDao;
-import Entity.User;
+import core.Helper;
+import dao.UserDao;
+import entity.User;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class UserManager {
     private final UserDao userDao;
@@ -14,54 +13,72 @@ public class UserManager {
         this.userDao = new UserDao();
     }
 
-    public User findByLogin(String username, String password){
-        return this.userDao.findByLogin(username,password);
+    public User findByLoging(String username, String password) {
+        // Farklı işlemler yapabiliriz ...
+        return this.userDao.findByLogin(username, password);
+
     }
 
-    public ArrayList<User> findAll(){
+    public ArrayList<Object[]> getForTable(int size, ArrayList<User> modelList) {
+        ArrayList<Object[]> modelObjList = new ArrayList<>();
+        for (User obj : modelList) {
+            int i = 0;
+            Object[] rowObject = new Object[size];
+            rowObject[i++] = obj.getId();
+            rowObject[i++] = obj.getUsername();
+            rowObject[i++] = obj.getPassword();
+            rowObject[i++] = obj.getRole();
+            modelObjList.add(rowObject);
+        }
+        return modelObjList;
+
+    }
+
+    public ArrayList<User> findAll() {
         return this.userDao.findAll();
     }
 
-    //yeni user oluşturup bunu userdao'ya gönderiyoruz. o da veritabanına kaydediyor
-    public boolean save(User user){
-        // eğer verdiğimizi user'in id'si 0 değilse yani bir id'si varsa bunu tabloya ekleyemeyiz bu durumda hata yapmışız demektir
-         if(user.getId() != 0){
-             Helper.showMsg("error");
-         }
+    public boolean save(User user) {
+        if (this.getById(user.getId()) != null) {
+            Helper.showMsg("error");
+            return false;
+        }
         return this.userDao.save(user);
     }
 
-    public boolean update(User user){
-        if(this.getById(user.getId()) == null){
-            Helper.showMsg("notFound");
+    public boolean update(User user) {
+        if (this.getById(user.getId()) == null) {
+            Helper.showMsg(user.getId() + "ID kayıtlı model bulunamadı");
+            return false;
         }
         return this.userDao.update(user);
     }
 
-    public User getById(int id){
-        return this.userDao.getById(id);
+    public User getById(int id) {
+        return this.userDao.getByID(id);
     }
 
-    public ArrayList<Object[]> getForTable(int size){
-        ArrayList<Object[]> userRowList = new ArrayList<>();
-
-        for(User user1: this.findAll()){
-            Object[] rowObject = new Object[size];
-            int i = 0;
-            rowObject[i++] = user1.getId();
-            rowObject[i++] = user1.getUsername();
-            rowObject[i++] = user1.getPassword();
-            rowObject[i++] = user1.getRole();
-            userRowList.add(rowObject);
-        }
-        return userRowList;
-    }
-
-    public boolean delete(int id){
-        if(this.getById(id) == null){
-            Helper.showMsg(id + " ID kayıtlı ID bulunamadı.");
+    public boolean delete(int id) {  // DELETE İŞLEMİ
+        if (this.getById(id) == null) {
+            Helper.showMsg(id + " ID kayıtlı model bulunamadı");
             return false;
         }
         return this.userDao.delete(id);
+    }
+
+    public ArrayList<User> searchForTable(String role) {
+        String select = "SELECT * FROM public.user";
+        ArrayList<String> whereList = new ArrayList<>();
+        if (role != null) {
+            whereList.add("user_role='" + role + "'");
+        }
+
+        String whereStr = String.join(" AND ", whereList);
+        String query = select;
+        if (whereStr.length() > 0) {
+            query += " WHERE " + whereStr;
+        }
+        System.out.println(whereList);
+        return this.userDao.selectByQuery(query);
     }
 }

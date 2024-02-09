@@ -1,21 +1,34 @@
-package Entity;
+package entity;
 
-import Core.ComboItem;
+import core.ComboItem;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Season {
     private int id;
-    private int otel_id;
-    private String start_date;
-    private String finish_date;
+    private int hotel_id;
+    private LocalDate start_date;
+    private LocalDate finish_date;
+    private String season_type;
 
-    public Season() {
+    public Season(int id, int hotel_id, String start_date, String finish_date,String season_type) {
+        this.id = id;
+        this.hotel_id = hotel_id;
+        this.start_date = LocalDate.parse(start_date);
+        this.finish_date = LocalDate.parse(finish_date);
+        this.season_type = season_type;
     }
 
-    public Season(int id, int otel_id, String start_date, String finish_date) {
-        this.id = id;
-        this.otel_id = otel_id;
-        this.start_date = start_date;
-        this.finish_date = finish_date;
+    public String getSeason_type() {
+        return season_type;
+    }
+
+    public void setSeason_type(String season_type) {
+        this.season_type = season_type;
+    }
+
+    public Season() {
     }
 
     public int getId() {
@@ -26,27 +39,27 @@ public class Season {
         this.id = id;
     }
 
-    public int getOtel_id() {
-        return otel_id;
+    public int getHotel_id() {
+        return hotel_id;
     }
 
-    public void setOtel_id(int otel_id) {
-        this.otel_id = otel_id;
+    public void setHotel_id(int hotel_id) {
+        this.hotel_id = hotel_id;
     }
 
-    public String getStart_date() {
+    public LocalDate getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(String start_date) {
+    public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
     }
 
-    public String getFinish_date() {
+    public LocalDate getFinish_date() {
         return finish_date;
     }
 
-    public void setFinish_date(String finish_date) {
+    public void setFinish_date(LocalDate finish_date) {
         this.finish_date = finish_date;
     }
 
@@ -58,9 +71,11 @@ public class Season {
     public String toString() {
         return "Season{" +
                 "id=" + id +
-                ", otel_id=" + otel_id +
+                ", hotel_id=" + hotel_id +
                 ", start_date='" + start_date + '\'' +
                 ", finish_date='" + finish_date + '\'' +
                 '}';
     }
+
 }
+

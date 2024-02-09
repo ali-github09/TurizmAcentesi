@@ -1,46 +1,44 @@
-package Entity;
+package entity;
 
-import Business.HotelManager;
-import Core.ComboItem;
+import business.HotelManager;
+import core.ComboItem;
 
 public class Hotel {
-
     private int id;
-    private String hotelname;
-    private String hoteladress;
-    private String hotelmail;
-    private String hotelphone;
-    private String hotelstar;
-    private boolean carpark;
+    private String name;
+    private String address;
+    private String mail;
+    private String phone;
+    private String star;
     private boolean wifi;
+    private boolean car_park;
     private boolean pool;
     private boolean fitness;
     private boolean concierge;
     private boolean spa;
-    private boolean roomservice;
+    private boolean room_service;
+    private Pension pension;
     private HotelManager hotelManager;
-    private Pansiyon pansiyon;
 
     public Hotel() {
     }
 
-    public Hotel(int id, String hotelname, String hoteladress, String hotelmail, String hotelphone, String hotelstar,
-                 boolean carpark, boolean wifi, boolean pool, boolean fitness, boolean concierge, boolean spa, boolean roomservice) {
+    public Hotel(int id, String name, String address, String mail, String phone, String star, boolean wifi, boolean car_park, boolean pool, boolean fitness, boolean concierge, boolean spa, boolean room_service) {
+        HotelManager hotelManager = new HotelManager();
+        Pension pension = new Pension();
         this.id = id;
-        this.hotelname = hotelname;
-        this.hoteladress = hoteladress;
-        this.hotelmail = hotelmail;
-        this.hotelphone = hotelphone;
-        this.hotelstar = hotelstar;
-        this.carpark = carpark;
+        this.name = name;
+        this.address = address;
+        this.mail = mail;
+        this.phone = phone;
+        this.star = star;
         this.wifi = wifi;
+        this.car_park = car_park;
         this.pool = pool;
         this.fitness = fitness;
         this.concierge = concierge;
         this.spa = spa;
-        this.roomservice = roomservice;
-        HotelManager hotelManager = new HotelManager();
-        Pansiyon pansiyon = new Pansiyon();
+        this.room_service = room_service;
     }
 
     public int getId() {
@@ -51,52 +49,44 @@ public class Hotel {
         this.id = id;
     }
 
-    public String getHotelname() {
-        return hotelname;
+    public String getName() {
+        return name;
     }
 
-    public void setHotelname(String hotelname) {
-        this.hotelname = hotelname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getHoteladress() {
-        return hoteladress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setHoteladress(String hoteladress) {
-        this.hoteladress = hoteladress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getHotelmail() {
-        return hotelmail;
+    public String getMail() {
+        return mail;
     }
 
-    public void setHotelmail(String hotelmail) {
-        this.hotelmail = hotelmail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getHotelphone() {
-        return hotelphone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setHotelphone(String hotelphone) {
-        this.hotelphone = hotelphone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getHotelstar() {
-        return hotelstar;
+    public String getStar() {
+        return star;
     }
 
-    public void setHotelstar(String hotelstar) {
-        this.hotelstar = hotelstar;
-    }
-
-    public boolean isCarpark() {
-        return carpark;
-    }
-
-    public void setCarpark(boolean carpark) {
-        this.carpark = carpark;
+    public void setStar(String star) {
+        this.star = star;
     }
 
     public boolean isWifi() {
@@ -105,6 +95,14 @@ public class Hotel {
 
     public void setWifi(boolean wifi) {
         this.wifi = wifi;
+    }
+
+    public boolean isCar_park() {
+        return car_park;
+    }
+
+    public void setCar_park(boolean car_park) {
+        this.car_park = car_park;
     }
 
     public boolean isPool() {
@@ -139,34 +137,34 @@ public class Hotel {
         this.spa = spa;
     }
 
-    public boolean isRoomservice() {
-        return roomservice;
+    public boolean isRoom_service() {
+        return room_service;
     }
 
-    public void setRoomservice(boolean roomservice) {
-        this.roomservice = roomservice;
+    public void setRoom_service(boolean room_service) {
+        this.room_service = room_service;
     }
 
-    public ComboItem getComboItem(){
-        return new ComboItem(this.getId(), this.getHotelname());
+    public ComboItem getComboItem() {
+        return new ComboItem(this.getId(), this.getName());
     }
 
     @Override
     public String toString() {
         return "Hotel{" +
                 "id=" + id +
-                ", hotelname='" + hotelname + '\'' +
-                ", hoteladress='" + hoteladress + '\'' +
-                ", hotelmail='" + hotelmail + '\'' +
-                ", hotelphone='" + hotelphone + '\'' +
-                ", hotelstar='" + hotelstar + '\'' +
-                ", carpark=" + carpark +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phone='" + phone + '\'' +
+                ", star='" + star + '\'' +
                 ", wifi=" + wifi +
+                ", car_park=" + car_park +
                 ", pool=" + pool +
                 ", fitness=" + fitness +
                 ", concierge=" + concierge +
                 ", spa=" + spa +
-                ", roomservice=" + roomservice +
+                ", room_service=" + room_service +
                 '}';
     }
 }

@@ -1,53 +1,60 @@
-package Business;
+package business;
 
-import Core.Helper;
-import Dao.HotelDao;
-import Entity.Hotel;
-import Entity.User;
+import core.Helper;
+import dao.HotelDao;
+import entity.Hotel;
 
 import java.util.ArrayList;
 
 public class HotelManager {
-    private HotelDao hotelDao;
+    HotelDao hotelDao = new HotelDao();
 
-    public HotelManager() {
-        this.hotelDao = new HotelDao();
+    public Hotel getById(int id){
+        return this.hotelDao.getByID(id);
     }
+    public ArrayList<Hotel> findAll() {return this.hotelDao.findAll();}
 
-    public ArrayList<Hotel> findAll(){
-        return this.hotelDao.findAll();
+    public ArrayList<Object[]> getForTable(int size,ArrayList<Hotel> hotels){
+        ArrayList<Object[]> hotelList = new ArrayList<>();
+        for(Hotel obj : hotels){
+            int i = 0;
+            Object[] rowObject = new Object[size];
+            rowObject[i++] = obj.getId();
+            rowObject[i++] = obj.getName();
+            rowObject[i++] = obj.getAddress();
+            rowObject[i++] = obj.getMail();
+            rowObject[i++] = obj.getPhone();
+            rowObject[i++] = obj.getStar();
+            rowObject[i++] = obj.isCar_park();
+            rowObject[i++] = obj.isWifi();
+            rowObject[i++] = obj.isPool();
+            rowObject[i++] = obj.isFitness();
+            rowObject[i++] = obj.isConcierge();
+            rowObject[i++] = obj.isSpa();
+            rowObject[i++] = obj.isRoom_service();
+            hotelList.add(rowObject);
+        }
+        return hotelList;
     }
 
     public boolean save(Hotel hotel){
-        // eğer verdiğimizi otelin'in id'si 0 değilse yani bir id'si varsa bunu tabloya ekleyemeyiz bu durumda hata yapmışız demektir
-        if(hotel.getId() != 0){
+        if(hotel.getId()!=0){
             Helper.showMsg("error");
         }
         return this.hotelDao.save(hotel);
     }
-
-    public ArrayList<Object[]> getForTable(int size){
-        ArrayList<Object[]> hotelRowList = new ArrayList<>();
-
-        for(Hotel hotel1: this.findAll()){
-            Object[] rowObject = new Object[size];
-            int i = 0;
-            rowObject[i++] = hotel1.getId();
-            rowObject[i++] = hotel1.getHotelname();
-            rowObject[i++] = hotel1.getHoteladress();
-            rowObject[i++] = hotel1.getHotelmail();
-            rowObject[i++] = hotel1.getHotelphone();
-            rowObject[i++] = hotel1.getHotelstar();
-            rowObject[i++] = hotel1.isCarpark();
-            rowObject[i++] = hotel1.isWifi();
-            rowObject[i++] = hotel1.isPool();
-            rowObject[i++] = hotel1.isFitness();
-            rowObject[i++] = hotel1.isConcierge();
-            rowObject[i++] = hotel1.isSpa();
-            rowObject[i++] = hotel1.isRoomservice();
-
-            hotelRowList.add(rowObject);
+    public boolean delete(int id){
+        if(this.getById(id) == null){
+            Helper.showMsg(id + " ID kayıtlı model bulunamadı");
+            return false;
         }
-        return hotelRowList;
+        return this.hotelDao.delete(id);
+    }
+    public boolean update(Hotel hotel){
+        if (this.getById(hotel.getId()) == null){
+            Helper.showMsg(hotel.getId() + "ID kayıtlı model bulunamadı");
+            return false;
+        }
+        return this.hotelDao.update(hotel);
     }
 }

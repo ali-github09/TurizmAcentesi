@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 public class User {
     private int id;
@@ -7,12 +7,13 @@ public class User {
     private String role;
 
     public User() {
+
     }
 
-    public User(String username, String password, String role) {
-
+    public User(int id, String username, String pass, String role) {
+        this.id = id;
         this.username = username;
-        this.password = password;
+        this.password = pass;
         this.role = role;
     }
 
@@ -36,8 +37,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String pass) {
+        this.password = pass;
     }
 
     public String getRole() {
@@ -57,5 +58,4 @@ public class User {
                 ", role='" + role + '\'' +
                 '}';
     }
-
 }

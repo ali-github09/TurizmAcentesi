@@ -1,15 +1,15 @@
-package Core;
+package core;
 
 public class ComboItem {
     private int key;
     private String value;
 
-    public ComboItem() {
-    }
-
     public ComboItem(int key, String value) {
         this.key = key;
         this.value = value;
+    }
+    public ComboItem(){
+
     }
 
     public int getKey() {
@@ -27,7 +27,6 @@ public class ComboItem {
     public void setValue(String value) {
         this.value = value;
     }
-
     public String toString(){
         return this.value;
     }

@@ -1,45 +1,54 @@
-package Entity;
+package entity;
+
+import business.HotelManager;
+import business.PensionManager;
 
 public class Room {
     private int id;
-    private int otel_id;
-    private String oda_tipi;
-    private int stok;
-    private int yetişkin_fiyat;
-    private int çocuk_fiyat;
-    private int yatak_kapasitesi;
-    private int alan;
-    private boolean tv;
+    private int hotel_id;
+    private int pension_id;
+    private int season_id;
+    private String type;
+    private int stock;
+    private double adult_price;
+    private double child_price;
+    private int bed_capacity;
+    private int square_meter;
+    private boolean television;
     private boolean minibar;
-    private boolean oyun_konsolu;
-    private boolean kasa;
-    private boolean projeksiyon;
-    private Hotel hotel;
-    private String season;
-    private String pansiyon;
-
+    private boolean game_console;
+    private boolean cash_box;
+    private boolean projection;
+    private boolean gym;
 
     public Room() {
     }
 
-    public Room(int id, int otel_id, String oda_tipi, int stok, int yetişkin_fiyat, int çocuk_fiyat, int yatak_kapasitesi,
-                int alan, boolean tv, boolean minibar, boolean oyun_konsolu, boolean kasa, boolean projeksiyon, Hotel hotel, String  season, String pansiyon) {
+    public Room(int id, int hotel_id, int pension_id, int season_id, String type, int stock, double adult_price, double child_price, int bed_capacity, int square_meter, boolean television, boolean minibar, boolean game_console, boolean cash_box, boolean projection,boolean gym) {
         this.id = id;
-        this.otel_id = otel_id;
-        this.oda_tipi = oda_tipi;
-        this.stok = stok;
-        this.yetişkin_fiyat = yetişkin_fiyat;
-        this.çocuk_fiyat = çocuk_fiyat;
-        this.yatak_kapasitesi = yatak_kapasitesi;
-        this.alan = alan;
-        this.tv = tv;
+        this.hotel_id = hotel_id;
+        this.pension_id = pension_id;
+        this.season_id = season_id;
+        this.type = type;
+        this.stock = stock;
+        this.adult_price = adult_price;
+        this.child_price = child_price;
+        this.bed_capacity = bed_capacity;
+        this.square_meter = square_meter;
+        this.television = television;
         this.minibar = minibar;
-        this.oyun_konsolu = oyun_konsolu;
-        this.kasa = kasa;
-        this.projeksiyon = projeksiyon;
-        this.hotel = hotel;
-        this.season = season;
-        this.pansiyon = pansiyon;
+        this.game_console = game_console;
+        this.cash_box = cash_box;
+        this.projection = projection;
+        this.gym = gym;
+    }
+
+    public boolean isGym() {
+        return gym;
+    }
+
+    public void setGym(boolean gym) {
+        this.gym = gym;
     }
 
     public int getId() {
@@ -50,68 +59,85 @@ public class Room {
         this.id = id;
     }
 
-    public int getOtel_id() {
-        return otel_id;
+    public int getHotel_id() {
+        return hotel_id;
     }
 
-    public void setOtel_id(int otel_id) {
-        this.otel_id = otel_id;
+    public void setHotel_id(int hotel_id) {
+        this.hotel_id = hotel_id;
     }
 
-    public String getOda_tipi() {
-        return oda_tipi;
+    public int getPension_id() {
+        return pension_id;
     }
 
-    public void setOda_tipi(String oda_tipi) {
-        this.oda_tipi = oda_tipi;
+    public void setPension_id(int pension_id) {
+        this.pension_id = pension_id;
     }
 
-    public int getStok() {
-        return stok;
+    public int getSeason_id() {
+        return season_id;
     }
 
-    public void setStok(int stok) {
-        this.stok = stok;
+    public void setSeason_id(int season_id) {
+        this.season_id = season_id;
     }
 
-    public int getYetişkin_fiyat() {
-        return yetişkin_fiyat;
+    public String getType() {
+        return type;
     }
 
-    public void setYetişkin_fiyat(int yetişkin_fiyat) {
-        this.yetişkin_fiyat = yetişkin_fiyat;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public int getÇocuk_fiyat() {
-        return çocuk_fiyat;
+    public int getStock() {
+        return stock;
     }
 
-    public void setÇocuk_fiyat(int çocuk_fiyat) {
-        this.çocuk_fiyat = çocuk_fiyat;
+    public int setStock(int stock) {
+        this.stock = stock;
+        return stock;
     }
 
-    public int getYatak_kapasitesi() {
-        return yatak_kapasitesi;
+    public double getAdult_price() {
+        return adult_price;
     }
 
-    public void setYatak_kapasitesi(int yatak_kapasitesi) {
-        this.yatak_kapasitesi = yatak_kapasitesi;
+    public void setAdult_price(double adult_price) {
+        this.adult_price = adult_price;
     }
 
-    public int getAlan() {
-        return alan;
+    public double getChild_price() {
+        return child_price;
     }
 
-    public void setAlan(int alan) {
-        this.alan = alan;
+    public void setChild_price(double child_price) {
+        this.child_price = child_price;
     }
 
-    public boolean isTv() {
-        return tv;
+    public int getBed_capacity() {
+        return bed_capacity;
     }
 
-    public void setTv(boolean tv) {
-        this.tv = tv;
+    public void setBed_capacity(int bed_capacity) {
+        this.bed_capacity = bed_capacity;
+    }
+
+    public int getSquare_meter() {
+        return square_meter;
+    }
+
+    public void setSquare_meter(int square_meter) {
+        this.square_meter = square_meter;
+    }
+
+    public boolean isTelevision() {
+        return television;
+    }
+
+    public void setTelevision(boolean television) {
+        this.television = television;
     }
 
     public boolean isMinibar() {
@@ -122,73 +148,56 @@ public class Room {
         this.minibar = minibar;
     }
 
-    public boolean isOyun_konsolu() {
-        return oyun_konsolu;
+    public boolean isGame_console() {
+        return game_console;
     }
 
-    public void setOyun_konsolu(boolean oyun_konsolu) {
-        this.oyun_konsolu = oyun_konsolu;
+    public void setGame_console(boolean game_console) {
+        this.game_console = game_console;
     }
 
-    public boolean isKasa() {
-        return kasa;
+    public boolean isCash_box() {
+        return cash_box;
     }
 
-    public void setKasa(boolean kasa) {
-        this.kasa = kasa;
+    public void setCash_box(boolean cash_box) {
+        this.cash_box = cash_box;
     }
 
-    public boolean isProjeksiyon() {
-        return projeksiyon;
+    public boolean isProjection() {
+        return projection;
     }
 
-    public void setProjeksiyon(boolean projeksiyon) {
-        this.projeksiyon = projeksiyon;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
-    public String  getSeason() {
-        return season;
-    }
-
-    public void setSeason(String season) {
-        this.season = season;
-    }
-
-    public String getPansiyon() {
-        return pansiyon;
-    }
-
-    public void setPansiyon(String pansiyon) {
-        this.pansiyon = pansiyon;
+    public void setProjection(boolean projection) {
+        this.projection = projection;
     }
 
     @Override
     public String toString() {
         return "Room{" +
                 "id=" + id +
-                ", otel_id=" + otel_id +
-                ", oda_tipi='" + oda_tipi + '\'' +
-                ", stok=" + stok +
-                ", yetişkin_fiyat=" + yetişkin_fiyat +
-                ", çocuk_fiyat=" + çocuk_fiyat +
-                ", yatak_kapasitesi=" + yatak_kapasitesi +
-                ", alan=" + alan +
-                ", tv=" + tv +
+                ", hotel_id=" + hotel_id +
+                ", pension_id=" + pension_id +
+                ", season_id=" + season_id +
+                ", type='" + type + '\'' +
+                ", stock=" + stock +
+                ", adult_price=" + adult_price +
+                ", child_price=" + child_price +
+                ", bed_capacity=" + bed_capacity +
+                ", square_meter=" + square_meter +
+                ", television=" + television +
                 ", minibar=" + minibar +
-                ", oyun_konsolu=" + oyun_konsolu +
-                ", kasa=" + kasa +
-                ", projeksiyon=" + projeksiyon +
-                ", hotel=" + hotel +
-                ", season=" + season +
-                ", pansiyon=" + pansiyon +
+                ", game_console=" + game_console +
+                ", cash_box=" + cash_box +
+                ", projection=" + projection +
                 '}';
+    }
+    public Hotel getHotel() {
+        HotelManager hotelManager = new HotelManager();
+        return hotelManager.getById(hotel_id);
+    }
+    public Pension getPension() {
+        PensionManager pensionManager=new PensionManager();
+        return pensionManager.getById(this.pension_id);
     }
 }

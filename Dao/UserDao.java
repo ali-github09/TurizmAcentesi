@@ -1,7 +1,9 @@
-package Dao;
+package dao;
 
-import Core.Db;
-import Entity.User;
+import core.Database;
+
+import core.Helper;
+import entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,113 +15,130 @@ public class UserDao {
     private final Connection con;
 
     public UserDao() {
-        this.con = Db.getInstance();
+        this.con = Database.getInstance();
     }
 
-    public ArrayList<User> findAll(){
+    public ArrayList<User> findAll() {
         ArrayList<User> userList = new ArrayList<>();
-        String sql = "SELECT * FROM public.user ORDER BY user_id";
+        String sql = "SELECT * FROM public.user";
         try {
             ResultSet rs = this.con.createStatement().executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
+
                 userList.add(this.match(rs));
             }
-        } catch (Exception e){
-            e.getMessage();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return userList;
     }
 
-
-
-    public boolean save(User user){
-        // kaç adet veri eklenecekse o kadar soru işareti olması gerekiyor.
-        String query = "INSERT INTO public.user (user_name,user_password,user_role) VALUES (?,?,?)";
-        try {
-            PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setString(1, user.getUsername());
-            pr.setString(2, user.getPassword());
-            pr.setString(3, user.getRole());
-            return pr.executeUpdate() != -1;
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    public boolean update(User user){
-        // kaç adet veri eklenecekse o kadar soru işareti olması gerekiyor.
-        String query = "UPDATE public.user SET user_name = ?, user_password = ?, user_role = ? WHERE user_id = ?";
-        try {
-            PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setString(1, user.getUsername());
-            pr.setString(2, user.getPassword());
-            pr.setString(3, user.getRole());
-            pr.setInt(4,user.getId());
-            return pr.executeUpdate() != -1;
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-
     public User findByLogin(String username, String password) {
-
         User obj = null;
-        String query = "SELECT * FROM public.user WHERE user_name = ? AND user_password = ?";
+        String query = "SELECT * FROM public.user WHERE user_name = ? AND user_pass = ?";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setString(1,username);
-            pr.setString(2,password);
+            pr.setString(1, username);
+            pr.setString(2, password);
             ResultSet rs = pr.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 obj = this.match(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return obj;
     }
 
     public User match(ResultSet rs) throws SQLException {
-        User user = new User();
-        user.setId(rs.getInt("user_id"));
-        user.setUsername(rs.getString("user_name"));
-        user.setPassword(rs.getString("user_password"));
-        user.setRole(rs.getString("user_role"));
-        return user;
+        User obj = new User();
+        obj.setId(rs.getInt("user_id"));
+        obj.setUsername(rs.getString("user_name"));
+        obj.setPassword(rs.getString("user_pass"));
+        obj.setRole(rs.getString("user_role"));
+        return obj;
     }
 
-    public User getById(int id){
+    public boolean save(User user) { // SAVE İŞLEMİ
+        String query = "INSERT INTO public.user (user_name , user_pass , user_role) VALUES (?,?, ?)";
+        try {
+            PreparedStatement pr = con.prepareStatement(query);
+            pr.setString(1, user.getUsername());
+            pr.setString(2, user.getPassword());
+            pr.setString(3, user.getRole());
+
+            return pr.executeUpdate() != -1;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
+
+
+
+    public boolean delete(int model_id) {
+        try {
+            String query = "DELETE FROM public.user WHERE user_id = ?";
+            PreparedStatement pr = con.prepareStatement(query);
+            pr.setInt(1, model_id);
+            return pr.executeUpdate() != -1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
+
+    public ArrayList<User> selectByQuery(String query) {//hazır bir SQL sorgu metodu oluşturduk.
+        ArrayList<User> userList = new ArrayList<>();
+        try {
+            ResultSet rs = this.con.createStatement().executeQuery(query);
+            while (rs.next()) {
+                userList.add(this.match(rs));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    public boolean update(User user) {
+        try {
+            String query = "UPDATE public.user SET " +
+                    "user_name = ?," +
+                    "user_pass = ?," +
+                    "user_role = ?" +
+                    "WHERE user_id = ?";
+
+            PreparedStatement pr = con.prepareStatement(query);
+            pr.setString(1, user.getUsername());
+            pr.setString(2, user.getPassword().toString());
+            pr.setString(3, user.getRole());
+            pr.setInt(4, user.getId());
+            return pr.executeUpdate() != -1;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
+
+    public User getByID(int id) {
         User obj = null;
         String query = "SELECT * FROM public.user WHERE user_id = ?";
         try {
-            PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1,id);
+            PreparedStatement pr = con.prepareStatement(query);
+            pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
-            if(rs.next()){
-                obj = this.match(rs);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
+            if (rs.next()) obj = this.match(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return obj;
     }
 
 
-
-
-    public boolean delete(int id){
-        String query = "DELETE FROM public.user WHERE user_id = ?";
-        try {
-            PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1,id);
-            return pr.executeUpdate() != -1;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
-        }
-        return true;
-    }
 }
+
+
