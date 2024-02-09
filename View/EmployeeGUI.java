@@ -82,42 +82,8 @@ public class EmployeeGUI extends Layout {
     public EmployeeGUI() {
 
 
-        btn_room_reset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        /*
-        btn_search_room.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedAdult = Integer.parseInt(tf_numb_adult_room.getText());
-                int selectedChild  = Integer.parseInt(tf_numb_children_room.getText());
-
-                if (selectedAdult < 0 || selectedChild < 0) {
-                    Helper.showMsg("Please enter a child or adult number");
-                }
-                ArrayList<Room> roomList = roomManager.searchForTable(
-                        tf_name_room.getText(),
-                        tf_city_room.getText(),
-                        tf_date_entry_room.getText(),
-                        tf_date_release_room.getText(),
-                        tf_numb_adult_room.getText(),
-                        tf_numb_children_room.getText()
-                );
-
-                ArrayList<Object[]> searchResult = roomManager.getForTable(col_room.length, roomList);
-                loadRoomTable(searchResult);
-
-            }
-        });
-
-         */
-
 
     }
-
 
     public EmployeeGUI(User user) {
         this.room = new Room();
@@ -148,9 +114,22 @@ public class EmployeeGUI extends Layout {
         LoadPensionTableComponent();
         loadSeasonTableComponent();
 
+        btn_room_reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            loadRoomTable(null);
+            }
+        });
+
         btn_search_room.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                JTextField[] roomJTextField = new JTextField[]{tf_date_entry_room, tf_date_release_room, tf_numb_adult_room, tf_numb_children_room};
+                if (Helper.isFieldListEmpty(roomJTextField)) {
+                    Helper.showMsg("Please fill adult and children guest number field");
+                }
+
                 int selectedAdult = Integer.parseInt(tf_numb_adult_room.getText());
                 int selectedChild  = Integer.parseInt(tf_numb_children_room.getText());
 
