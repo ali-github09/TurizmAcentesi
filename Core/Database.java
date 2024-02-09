@@ -11,7 +11,7 @@ public class Database {
     private final String DB_USER = "postgres";
     private final String DB_PASS = "1234";
 
-
+    // yukarıda tanımladığımız url, kullanıcı adı ve şifreyi kullanarak database ile bağlantı kuruyoruz.
     private Database () {
         try {
             this.connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASS);
@@ -22,8 +22,10 @@ public class Database {
     public Connection getConnection() {
         return connection;
     }
+
     public static Connection getInstance(){
         try {
+            //eğer bağlantı kopmuş ise yeni bir bağlantı oluturuyoruz
             if (instance == null || instance.getConnection().isClosed()) {
                 instance = new Database();
             }

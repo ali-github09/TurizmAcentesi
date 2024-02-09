@@ -14,6 +14,8 @@ public class HotelManager {
     }
     public ArrayList<Hotel> findAll() {return this.hotelDao.findAll();}
 
+
+    //tablo oluştururken içerisine verdiğimiz arraylistin her bir elemanının değerlerini bir objeye atarak o objeden oluşan bir liste dönen metod.
     public ArrayList<Object[]> getForTable(int size,ArrayList<Hotel> hotels){
         ArrayList<Object[]> hotelList = new ArrayList<>();
         for(Hotel obj : hotels){

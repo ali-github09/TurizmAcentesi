@@ -19,7 +19,7 @@ public class HotelDao {
         this.connection = Database.getInstance();
     }
 
-
+    // seçtiğimiz id'ye göre arama yapan query oluşturup, o id'ye sahip objeyi döndüren metod.
     public Hotel getByID(int id) {
         Hotel obj = null;
         String query = "SELECT * FROM public.hotel WHERE id = ? ";
@@ -36,6 +36,7 @@ public class HotelDao {
         return obj;
     }
 
+    // database'den aldığımız sonuçları entity parametrelerine atayıp eşleme işlemi yapıyoruz.
     public Hotel match(ResultSet rs) throws SQLException {
         Hotel obj = new Hotel();
         obj.setId(rs.getInt("id"));
@@ -55,6 +56,7 @@ public class HotelDao {
         return obj;
     }
 
+    // bir entity'e ait tüm elemanları bir arrayliste atayıp o arraylisti döndüren metod
     public ArrayList<Hotel> findAll() {
         ArrayList<Hotel> hotelList = new ArrayList<>();
         String sql = "SELECT * FROM public.hotel";
@@ -70,7 +72,7 @@ public class HotelDao {
         return hotelList;
     }
 
-
+    // database'e yeni bir obje kaydetmek için gerekli query oluşturan kayıt işlemi yapan metod.
     public boolean save(Hotel hotel) {
         String query = "INSERT INTO public.hotel " +
                 "(" +
@@ -108,6 +110,8 @@ public class HotelDao {
         }
         return true;
     }
+
+    // databaseden veri silmek için gerekli query oluşturup silme işlemi yapan metod
     public boolean delete(int model_id){
         try{
             String query = "DELETE FROM public.hotel WHERE id = ?";
@@ -119,6 +123,8 @@ public class HotelDao {
         }
         return true;
     }
+
+    // databasede veri güncellemek için gerekli query oluşturup güncelleme işlemi yapan metod
     public boolean update(Hotel hotel) {
         try {
             String query = "UPDATE public.hotel SET " +
